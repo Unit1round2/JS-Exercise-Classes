@@ -84,8 +84,16 @@ class Car {
       this.tank = this.tank += gallons
     };
     drive(distance){
-      return this.odometer + distance;
-      return this.tank - this.milesPerGallon;
+      let driveableDistance = this.tank * this.milesPerGallon
+      if(distance < driveableDistance){
+        this.odometer += distance;
+        this.tank -= (distance/this.milesPerGallon);
+      } else {
+        this.odometer += driveableDistance;
+        this.tank = 0;
+        return `I ran out of fuel at ${this.odometer} miles.`;
+      }
+      
     }
   
     
@@ -106,12 +114,12 @@ class Car {
 class Lambdasian {
   constructor(attributes){
     this.name = attributes.name;
-    this.age = attributes.name;
+    this.age = attributes.age;
     this.location = attributes.location;
   }
 
   speak(){
-    return `Hello my name is ${this.name}, I am from ${location}.`;
+    return `Hello my name is ${this.name}, I am from ${this.location}.`;
   }
 }
 
@@ -142,7 +150,7 @@ class Instructor extends Lambdasian{
       return `Today we are learing about ${subject}`;
     }
     grade(student, subject){
-      `${student.name} receives a perfect score on ${subject}`;
+      return `${student.name} receives a perfect score on ${subject}`;
     }
 }
 
@@ -171,11 +179,11 @@ class Student extends Lambdasian{
   listSubjects(){
     return `Loving ${this.favSubjects}`;
   }
-  PRAssingment(subject){
-    return `${student.name} has submitted a PR for ${subject} `;
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`;
   }
   sprintChallenge(subject){
-    return `${student.name} as begun sprint challenge on ${subject}`
+    return `${this.name} as begun sprint challenge on ${subject}`
   }
 
 }
@@ -205,6 +213,7 @@ class ProjectManager extends Instructor{
   debugsCode(student, subject){  
     return `${this.name} debugs ${student.name}'s code on ${subject}`
   }
+  
 }
 
 /*
